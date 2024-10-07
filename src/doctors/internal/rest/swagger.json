@@ -1,0 +1,347 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Doctor search engine",
+        "contact": {
+            "name": "Marcos",
+            "email": "piedra.osuna@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/doctors/v1/doctors": {
+            "get": {
+                "description": "Search doctor",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Doctors"
+                ],
+                "summary": "Search doctor",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Name of the doctor.",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Surname of the doctor.",
+                        "name": "surname",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Speciality of the doctor",
+                        "name": "specialityId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/doctors.DoctorsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/doctor-search-engine_internal_web.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/doctor-search-engine_internal_web.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Add doctor",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Doctors"
+                ],
+                "summary": "Add doctor",
+                "parameters": [
+                    {
+                        "description": "Doctor to add",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/doctors.DoctorRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/doctors.DoctorsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/doctor-search-engine_internal_web.ErrorResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/doctor-search-engine_internal_web.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/doctor-search-engine_internal_web.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/doctors/v1/doctors/counter": {
+            "get": {
+                "description": "Get doctor counter",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Doctors"
+                ],
+                "summary": "Get doctor counter",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/doctors.DoctorsCounterResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/doctor-search-engine_internal_web.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/doctors/v1/specialities": {
+            "get": {
+                "description": "Get all specialities of the system.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Specialities"
+                ],
+                "summary": "Get Specialities",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/doctors.SpecialitiesResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/doctor-search-engine_internal_web.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "doctor-search-engine_internal_web.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "doctors.DoctorCounterResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "speciality_id": {
+                    "type": "integer"
+                },
+                "surname": {
+                    "type": "string"
+                }
+            }
+        },
+        "doctors.DoctorRequest": {
+            "type": "object",
+            "required": [
+                "adress",
+                "city",
+                "country",
+                "email",
+                "name",
+                "phone",
+                "registration_id",
+                "speciality_id",
+                "surname",
+                "zip_code"
+            ],
+            "properties": {
+                "adress": {
+                    "type": "string",
+                    "maxLength": 32,
+                    "minLength": 4
+                },
+                "city": {
+                    "type": "string",
+                    "maxLength": 32,
+                    "minLength": 4
+                },
+                "country": {
+                    "type": "string",
+                    "maxLength": 32,
+                    "minLength": 4
+                },
+                "email": {
+                    "type": "string",
+                    "maxLength": 32,
+                    "minLength": 4
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 32,
+                    "minLength": 4
+                },
+                "phone": {
+                    "type": "string",
+                    "maxLength": 32,
+                    "minLength": 4
+                },
+                "registration_id": {
+                    "type": "string",
+                    "maxLength": 32,
+                    "minLength": 4
+                },
+                "speciality_id": {
+                    "type": "integer",
+                    "maximum": 99999,
+                    "minimum": 0
+                },
+                "surname": {
+                    "type": "string",
+                    "maxLength": 32,
+                    "minLength": 4
+                },
+                "zip_code": {
+                    "type": "string",
+                    "maxLength": 32,
+                    "minLength": 4
+                }
+            }
+        },
+        "doctors.DoctorResponse": {
+            "type": "object",
+            "properties": {
+                "adress": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "registration_id": {
+                    "type": "string"
+                },
+                "speciality_id": {
+                    "type": "integer"
+                },
+                "speciality_name": {
+                    "type": "string"
+                },
+                "surname": {
+                    "type": "string"
+                },
+                "zip_code": {
+                    "type": "string"
+                }
+            }
+        },
+        "doctors.DoctorsCounterResponse": {
+            "type": "object",
+            "properties": {
+                "doctors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/doctors.DoctorCounterResponse"
+                    }
+                }
+            }
+        },
+        "doctors.DoctorsResponse": {
+            "type": "object",
+            "properties": {
+                "doctors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/doctors.DoctorResponse"
+                    }
+                }
+            }
+        },
+        "doctors.SpecialitiesResponse": {
+            "type": "object",
+            "properties": {
+                "specialities": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/doctors.SpecialtityResponse"
+                    }
+                }
+            }
+        },
+        "doctors.SpecialtityResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "OpenAPI",
+        "url": "https://swagger.io/resources/open-api/"
+    }
+}

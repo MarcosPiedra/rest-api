@@ -1,0 +1,6 @@
+Environment: "Development"
+LogLevel: "DEBUG"
+Postgres:
+  Conn: "host=host.docker.internal dbname=restapi user=restapi password=restapi sslmode=disable"
+Web:
+  Port: "8080"
